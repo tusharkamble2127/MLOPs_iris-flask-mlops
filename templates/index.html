@@ -1,0 +1,17 @@
+<!doctype html>
+<html><head><title>Iris Predictor</title></head>
+<body style="font-family:Arial;max-width:480px;margin:40px auto">
+<h2>Iris Species Predictor</h2>
+<input id="a" placeholder="Sepal length" value="5.1"><br><br>
+<input id="b" placeholder="Sepal width" value="3.5"><br><br>
+<input id="c" placeholder="Petal length" value="1.4"><br><br>
+<input id="d" placeholder="Petal width" value="0.2"><br><br>
+<button onclick="go()">Predict</button>
+<h3 id="out"></h3>
+<script>
+async function go(){
+  const r = await fetch('/predict',{method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({sepal_length:a.value,sepal_width:b.value,petal_length:c.value,petal_width:d.value})});
+  const j = await r.json(); out.textContent = j.species ? 'Species: '+j.species : j.error;
+}
+</script></body></html>
